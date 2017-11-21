@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'underscore';
 
 import BackboneViewWrapper from './components/backbone-view-wrapper';
+import hocPlugin from './components/plugin-wrapper';
 
 class ReactProjectionGrid extends Component {
   constructor(props) {
@@ -21,11 +22,11 @@ class ReactProjectionGrid extends Component {
   }
 
   componentDidMount() {
-    this.setPlugins();
+    // this.setPlugins();
   }
 
   componentDidUpdate() {
-    this.setPlugins();
+    // this.setPlugins();
   }
 
   componentWillUnmount() {
@@ -50,8 +51,13 @@ class ReactProjectionGrid extends Component {
   }
 
   render() {
+    const children = React.Children.map(_.flatten([this.props.children]), child =>
+      hocPlugin(child, this.gridView));
     return (
-      <BackboneViewWrapper view={this.gridView} />
+      <div>
+        <BackboneViewWrapper view={this.gridView} />
+        {children}
+      </div>
     );
   }
 }

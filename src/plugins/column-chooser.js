@@ -1,3 +1,7 @@
+import { Component } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'underscore';
+
 /**
  *
  * @typedef ColumnConfig
@@ -31,6 +35,28 @@
  *    will be rendered in the column header if `html` is omitted.
  * */
 
-export const ColumnChooser = (plugin, props) => plugin('columnChooser', ['grid'], (grid) => {
-  grid.set({ columns: props.columns });
-});
+export class ColumnChooser extends Component {
+  componentDidMount() {
+    this.props.dispatchAction('set:columns', { columns: this.props.columns });
+  }
+
+  componentDidUpdate() {
+    this.props.dispatchAction('set:columns', { columns: this.props.columns });
+  }
+
+  render() {
+    return null;
+  }
+}
+
+ColumnChooser.defaultProps = {
+  dispatchAction: _.noop,
+};
+
+ColumnChooser.propTypes = {
+  dispatchAction: PropTypes.func,
+  columns: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.arrayOf(PropTypes.string),
+  ]).isRequired,
+};
