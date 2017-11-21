@@ -17,14 +17,6 @@ class ReactProjectionGrid extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.setPlugins();
-  }
-
-  componentDidUpdate() {
-    // this.setPlugins();
-  }
-
   componentWillUnmount() {
     this.gridView.remove();
   }
