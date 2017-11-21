@@ -27,7 +27,7 @@ class ReactProjectionGrid extends Component {
 
   render() {
     const children = React.Children.map(_.flatten([this.props.children]), child =>
-      hocPlugin(child, this.gridView, (...args) => this.props.onChanged(...args)));
+      hocPlugin(child, this.gridView, this.props.onChanged));
     return (
       <div>
         <BackboneViewWrapper view={this.gridView} />
