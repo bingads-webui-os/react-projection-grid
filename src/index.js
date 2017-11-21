@@ -11,14 +11,18 @@ class ReactProjectionGrid extends Component {
     super(props);
 
     this.gridView = pgrid.factory({ vnext: true })
-      .create({
-        tableClasses: props.config.tableClasses,
-        dataSource: props.config.dataSource,
-      }).gridView.render();
 
     this.plugins = {
       grid: this.gridView,
     };
+  }
+
+  componentDidMount() {
+    // this.setPlugins();
+  }
+
+  componentDidUpdate() {
+    // this.setPlugins();
   }
 
   componentWillUnmount() {
@@ -28,6 +32,7 @@ class ReactProjectionGrid extends Component {
   render() {
     const children = React.Children.map(_.flatten([this.props.children]), child =>
       hocPlugin(child, this.gridView, this.props.onChanged));
+      hocPlugin(child, this.gridView));
     return (
       <div>
         <BackboneViewWrapper view={this.gridView} />
@@ -39,10 +44,6 @@ class ReactProjectionGrid extends Component {
 
 ReactProjectionGrid.propTypes = {
   config: PropTypes.shape({
-    tableClasses: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-    ]),
     dataSource: PropTypes.object,
   }).isRequired,
   children: PropTypes.oneOfType([

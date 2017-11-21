@@ -37,6 +37,7 @@ import _ from 'underscore';
 
 export class ColumnChooser extends Component {
   componentDidMount() {
+<<<<<<< HEAD
     this.updateGrid();
   }
 
@@ -49,6 +50,13 @@ export class ColumnChooser extends Component {
       {
         columns: this.props.columns,
       });
+=======
+    this.props.dispatchAction('set:columns', { columns: this.props.columns });
+  }
+
+  componentDidUpdate() {
+    this.props.dispatchAction('set:columns', { columns: this.props.columns });
+>>>>>>> refact plugin
   }
 
   render() {
