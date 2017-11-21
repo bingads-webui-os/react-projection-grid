@@ -21,33 +21,8 @@ class ReactProjectionGrid extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.setPlugins();
-  }
-
-  componentDidUpdate() {
-    // this.setPlugins();
-  }
-
   componentWillUnmount() {
     this.gridView.remove();
-  }
-
-  setPlugins() {
-    _.each(_.flatten([this.props.children]), (plugin) => {
-      plugin.type(this.plugin.bind(this), plugin.props);
-    });
-  }
-
-  plugin(name, deps, callback) {
-    _.each(deps, (dep) => {
-      if (!_.has(this.plugins, dep)) {
-        throw new Error(`unresolved plugin dependency ${name} -> ${dep}`);
-      }
-    });
-
-    this.plugins[name] = callback.apply(this /* allow plugin acces to the context */,
-      (_.map(deps, dep => this.plugins[dep])));
   }
 
   render() {
