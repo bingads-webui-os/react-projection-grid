@@ -37,11 +37,18 @@ import _ from 'underscore';
 
 export class ColumnChooser extends Component {
   componentDidMount() {
-    this.props.dispatchAction('set:columns', { columns: this.props.columns });
+    this.updateGrid();
   }
 
   componentDidUpdate() {
-    this.props.dispatchAction('set:columns', { columns: this.props.columns });
+    this.updateGrid();
+  }
+
+  updateGrid() {
+    this.props.dispatchAction('set:columns',
+      {
+        columns: this.props.columns,
+      });
   }
 
   render() {

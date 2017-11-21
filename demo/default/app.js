@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 
-import ReactProjectionGrid, { ColumnChooser } from 'ReactProjectionGrid'; // eslint-disable-line
+import ReactProjectionGrid, { ColumnChooser, Pagination } from 'ReactProjectionGrid'; // eslint-disable-line
 
 import people from './people.json';
 
@@ -17,6 +17,8 @@ const config = {
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    const pageSize = 3;
 
     this.state = {
       columns: [
@@ -40,6 +42,9 @@ export default class App extends Component {
           },
         },
       ],
+      pageNumber: 0,
+      pageSize,
+      pageCount: Math.ceil(_.size(config.dataSource.data) / pageSize),
     };
   }
 
@@ -56,8 +61,52 @@ export default class App extends Component {
             });
           }}
         > Add emails column </button>
-        <ReactProjectionGrid config={config}>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+
+            this.setState((preState) => {
+              if (preState.pageNumber > 0) {
+                return {
+                  pageNumber: preState.pageNumber - 1,
+                };
+              }
+              return {
+                pageNumber: preState.pageNumber,
+              };
+            });
+          }
+          }
+        > Previous page </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+
+            this.setState((preState) => {
+              if (preState.pageNumber < preState.pageCount - 1) {
+                return {
+                  pageNumber: preState.pageNumber + 1,
+                };
+              }
+              return {
+                pageNumber: preState.pageNumber,
+              };
+            });
+          }
+          }
+        > Next page </button>
+        <ReactProjectionGrid
+          config={config}
+          onChanged={(...args) => {
+            console.log('change grid event:' + JSON.stringify(args)); // eslint-disable-line
+          }}
+        >
           <ColumnChooser columns={this.state.columns} />
+          <Pagination
+            pageNumber={this.state.pageNumber}
+            pageCount={this.state.pageCount}
+            pageSize={this.state.pageSize}
+          />
         </ReactProjectionGrid>
       </div>
     );

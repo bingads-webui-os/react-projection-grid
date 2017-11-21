@@ -27,7 +27,7 @@ class ReactProjectionGrid extends Component {
 
   render() {
     const children = React.Children.map(_.flatten([this.props.children]), child =>
-      hocPlugin(child, this.gridView));
+      hocPlugin(child, this.gridView, (...args) => this.props.onChanged(...args)));
     return (
       <div>
         <BackboneViewWrapper view={this.gridView} />
@@ -49,12 +49,15 @@ ReactProjectionGrid.propTypes = {
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.object,
   ]),
+  onChanged: PropTypes.func,
 };
 
 ReactProjectionGrid.defaultProps = {
   children: [],
+  onChanged: _.noop,
 };
 
 export default ReactProjectionGrid;
 
 export * from './plugins/column-chooser';
+export * from './plugins/pagination';

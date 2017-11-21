@@ -1,19 +1,29 @@
 import React from 'react';
 import _ from 'underscore';
 
-export default function hocPlugin(plugin, grid) {
-  const dispatchAction = (action, args, callback) => {
+function setPagination(grid, pageNumber, pageSize) {
+  const skip = pageSize * pageNumber;
+  const take = pageSize;
+  grid.set({
+    query: _.defaults({ skip, take }, grid.get('query')),
+  });
+}
+
+export default function hocPlugin(plugin, grid, onGridChanged) {
+  const dispatchAction = (action, args) => {
     // process event support in grid view
     switch (action) {
       case 'set:columns':
         grid.set({ columns: args.columns });
         break;
-      default:
+      case 'set:pagination':
+        setPagination(grid, args.pageNumber, args.pageSize);
         break;
+      default:
+        return;
     }
-    if (_.isFunction(callback)) {
-      callback(args);
-    }
+
+    onGridChanged(action, args);
   };
   return React.cloneElement(plugin, {
     dispatchAction,
