@@ -55,3 +55,5 @@ export * from './plugins/column-chooser';
 export * from './plugins/pagination';
 
 export * from './react-grid';
+export * from './projections/pagination';
+export * from './projections/selection';

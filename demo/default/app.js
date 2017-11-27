@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 
-import ReactProjectionGrid, { ColumnChooser, Pagination, ReactGrid } from 'ReactProjectionGrid'; // eslint-disable-line
+import { ReactGrid, getPagination, getSelection } from 'ReactProjectionGrid'; // eslint-disable-line
 
 import people from './people.json';
 
@@ -45,6 +45,7 @@ export default class App extends Component {
       pageNumber: 0,
       pageSize,
       pageCount: Math.ceil(_.size(config.dataSource.data) / pageSize),
+      selectedKeys: [],
     };
   }
 
@@ -95,26 +96,21 @@ export default class App extends Component {
           }
           }
         > Next page </button>
-        <ReactProjectionGrid
-          config={config}
-          onChanged={(...args) => {
-            console.log('change grid event:' + JSON.stringify(args)); // eslint-disable-line
-          }}
-        >
-          <ColumnChooser columns={this.state.columns} />
-          <Pagination
-            pageNumber={this.state.pageNumber}
-            pageCount={this.state.pageCount}
-            pageSize={this.state.pageSize}
-          />
-        </ReactProjectionGrid>
-        <h1>React Grid</h1>
+        <div>selected items is: {JSON.stringify(this.state.selectedKeys)}</div>
         <ReactGrid
           config={{
             data: people.value,
             columns: this.state.columns,
             primaryKey: 'UserName',
           }}
+          projections={[getPagination({
+            pageNumber: this.state.pageNumber,
+            pageSize: this.state.pageSize,
+          }), getSelection({
+            onSelectChanged: selectedKeys => this.setState({ selectedKeys }),
+            selected: this.state.selectedKeys,
+          }),
+          ]}
         />
       </div>
     );
