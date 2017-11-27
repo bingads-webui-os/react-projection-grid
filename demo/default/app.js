@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 
-import ReactProjectionGrid, { ColumnChooser, Pagination } from 'ReactProjectionGrid'; // eslint-disable-line
+import ReactProjectionGrid, { ColumnChooser, Pagination, ReactGrid } from 'ReactProjectionGrid'; // eslint-disable-line
 
 import people from './people.json';
 
@@ -108,6 +108,14 @@ export default class App extends Component {
             pageSize={this.state.pageSize}
           />
         </ReactProjectionGrid>
+        <h1>React Grid</h1>
+        <ReactGrid
+          config={{
+            data: people.value,
+            columns: this.state.columns,
+            primaryKey: 'UserName',
+          }}
+        />
       </div>
     );
   }

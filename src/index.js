@@ -53,3 +53,5 @@ export default ReactProjectionGrid;
 
 export * from './plugins/column-chooser';
 export * from './plugins/pagination';
+
+export * from './react-grid';

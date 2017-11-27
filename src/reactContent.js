@@ -5,6 +5,9 @@ import _ from 'underscore';
 function Content(props) {
   const { col, record } = props;
   if (!_.isEmpty(record)) {
+    if (col.name === 'AddressInfo') {
+      return (<div>{JSON.stringify(record[col.name])}</div>);
+    }
     return (<div>{record[col.name]}</div>);
   }
   return (<div>{col.name}</div>);
