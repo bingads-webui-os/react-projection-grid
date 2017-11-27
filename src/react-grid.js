@@ -17,7 +17,7 @@ export class ReactGrid extends Component {
 
   prepareProjectionCore(props) {
     this.projectionModel = CoreDefault(props.config);
-    _.extend(this.projectionModel, {composeContent});
+    _.extend(this.projectionModel, { composeContent });
     this.projectionCore = new ProjectionCore(props.projections);
   }
 
