@@ -19,6 +19,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        use: ['source-map-loader'],
+        enforce: 'pre',
+      },
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.js$/, loader: 'eslint-loader', exclude: [/node_modules/, /dist/] },
       {
@@ -47,8 +52,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      ReactProjectionGrid: '../../dist/index',
-      'projection-grid-core': 'projection-grid-core/src/index',
+      'react-projection-grid': '../../dist/index',
     },
   },
   plugins: [
