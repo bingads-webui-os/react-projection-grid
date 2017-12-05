@@ -8,8 +8,6 @@ import { TableRender } from './components/table-renderer';
 
 /* eslint-disable react/no-unused-prop-types */
 
-const configProps = ['records', 'columns', 'primaryKey', 'sort'];
-
 class ProjectionGridReact extends React.Component {
   componentWillMount() {
     this.core = new ProjectionGridCore({ DefaultCell, DefaultHeader });
@@ -17,7 +15,7 @@ class ProjectionGridReact extends React.Component {
 
   render() {
     const model = this.core.compose({
-      config: _.pick(this.props, configProps),
+      config: _.omit(this.props, 'projections'),
       projections: this.props.projections || [],
     });
 

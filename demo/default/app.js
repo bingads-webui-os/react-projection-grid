@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css'; // eslint-disable-line
 import React, { Component } from 'react';
 import _ from 'underscore';
 
@@ -105,6 +104,7 @@ export default class App extends Component {
           tfoot={{
             BeforeRows: [customRow],
           }}
+          theme="bootstrap-striped-rows"
         />
       </div>
     );
