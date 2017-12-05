@@ -30,6 +30,14 @@ const customRow = {
   },
 };
 
+const customRecords = {
+  records: [{
+    UserName: 'testxxxxxx',
+    FirstName: 'Russell',
+    LastName: 'Whyte',
+  }],
+};
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -94,23 +102,17 @@ export default class App extends Component {
           caption={caption}
           tbody={{
             tr: {
-              classes: () => {
-                console.log('current args is:'); // eslint-disable-line
-                return ['row-class'];
-              },
+              classes: () => (['row-class']),
             },
-            BeforeRows: [customRow, customRow, { records: [{
-              UserName: 'testxxxxxx',
-              FirstName: 'Russell',
-              LastName: 'Whyte',
-            }],
-            }],
+            BeforeRows: [customRow, customRecords, customRow],
           }}
           thead={{
             BeforeRows: [customRow],
+            AfterRows: [customRecords],
           }}
           tfoot={{
-            BeforeRows: [customRow],
+            BeforeRows: [customRecords],
+            AfterRows: [customRow],
           }}
           theme="bootstrap-striped-rows"
         />

@@ -70,7 +70,7 @@ export const TableRender = (props) => {
     <thead {...formatProps(table.thead)}>
       {table.thead.trs.map(tr => (
         <tr {...formatProps(tr)}>
-          {tr.ths.map(th => (
+          {(tr.tds || tr.ths).map(th => (
             <th {...formatProps(th)}>
               <th.content.Component {...formatProps(th.content)} />
             </th>
