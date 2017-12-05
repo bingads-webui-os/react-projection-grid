@@ -1,5 +1,7 @@
+import 'bootstrap/dist/css/bootstrap.min.css'; // eslint-disable-line
 import React, { Component } from 'react';
 import _ from 'underscore';
+import Octicon from 'react-octicon'; // eslint-disable-line
 
 import ProjectionGridReact from 'projection-grid-react'; // eslint-disable-line
 import people from './people.json';
@@ -79,6 +81,12 @@ export default class App extends Component {
           columns={this.state.columns}
           primaryKey="UserName"
           sort={{
+            ascComponent: ({ column }) => (
+              <div>
+                <Octicon name="arrow-up" />
+                <span>{column.name}</span>
+              </div>
+            ),
             descClasses: ['glyphicon', 'glyphicon-menu-down'],
             handleResort: this.handleResort,
           }}
