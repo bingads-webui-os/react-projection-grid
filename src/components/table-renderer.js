@@ -85,6 +85,12 @@ export const TableRender = (props) => {
     </tbody>
   ));
 
+  const tfoot = table.tfoot ? (
+    <tfoot>
+      {renderTrs(table.tfoot.trs)}
+    </tfoot>
+  ) : null;
+
   return (
     <div>
       <table {...formatProps(table)}>
@@ -92,6 +98,7 @@ export const TableRender = (props) => {
         {colgroups}
         {thead}
         {tbodies}
+        {tfoot}
       </table>
     </div>
   );
