@@ -30,12 +30,12 @@ const customRow = {
   },
 };
 
-const customRecords = {
-  records: [{
+const customRecord = {
+  record: {
     UserName: 'testxxxxxx',
     FirstName: 'Russell',
     LastName: 'Whyte',
-  }],
+  },
 };
 
 export default class App extends Component {
@@ -104,15 +104,14 @@ export default class App extends Component {
             tr: {
               classes: () => (['row-class']),
             },
-            BeforeRows: [customRow, customRecords, customRow],
           }}
           thead={{
-            BeforeRows: [customRow],
-            AfterRows: [customRecords],
+            rows: [{
+              isHeader: true,
+            }, customRecord, customRow],
           }}
           tfoot={{
-            BeforeRows: [customRecords],
-            AfterRows: [customRow],
+            rows: [customRow, customRecord],
           }}
           theme="bootstrap-striped-rows"
         />
