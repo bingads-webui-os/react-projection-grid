@@ -36,11 +36,18 @@ function renderTrs(trs) {
   return (
     trs.map(tr => (
       <tr {...formatProps(tr)}>
-        {tr.tds.map(td => (
-          <td {...formatProps(td)}>
-            <td.content.Component {...formatProps(td.content)} />
-          </td>
-        ))}
+        {tr.tds.map((td) => {
+          if (td.isHeader) {
+            return (
+              <th {...formatProps(td)}>
+                <td.content.Component {...formatProps(td.content)} />
+              </th>);
+          }
+          return (
+            <td {...formatProps(td)}>
+              <td.content.Component {...formatProps(td.content)} />
+            </td>);
+        })}
       </tr>
     ))
   );
@@ -68,14 +75,7 @@ export const TableRender = (props) => {
 
   const thead = (
     <thead {...formatProps(table.thead)}>
-      {table.thead.trs.map(tr => (
-        <tr {...formatProps(tr)}>
-          {(tr.tds || tr.ths).map(th => (
-            <th {...formatProps(th)}>
-              <th.content.Component {...formatProps(th.content)} />
-            </th>
-          ))}
-        </tr>))}
+      {renderTrs(table.thead.trs)}
     </thead>
   );
 
