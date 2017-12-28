@@ -3,6 +3,9 @@
   # Refer to docs/javascript/README.md for detail
   extends: airbnb
 
+  plugins:
+    - jest
+
   env:
     browser: true
     amd: true

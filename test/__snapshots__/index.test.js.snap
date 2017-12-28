@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectionGridReact should render correctly 1`] = `
+<div>
+  <table
+    className=""
+    style={Object {}}
+  >
+    <caption
+      className=""
+      style={Object {}}
+    />
+    <thead
+      className=""
+      style={Object {}}
+    >
+      <tr
+        className=""
+        style={Object {}}
+      />
+    </thead>
+    <tbody
+      className=""
+      style={Object {}}
+    >
+      <tr
+        className=""
+        style={Object {}}
+      />
+    </tbody>
+  </table>
+</div>
+`;

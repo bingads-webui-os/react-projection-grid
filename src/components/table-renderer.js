@@ -40,12 +40,12 @@ function renderTrs(trs) {
           if (td.isHeader) {
             return (
               <th {...formatProps(td)}>
-                <td.content.Component {...formatProps(td.content)} />
+                {td.content}
               </th>);
           }
           return (
             <td {...formatProps(td)}>
-              <td.content.Component {...formatProps(td.content)} />
+              {td.content}
             </td>);
         })}
       </tr>
@@ -59,9 +59,7 @@ export const TableRender = (props) => {
   const caption = table.caption ?
     (
       <caption {...formatProps(table.caption)}>
-        <table.caption.content.Component
-          {...formatProps(table.caption.content)}
-        />
+        {table.caption.content}
       </caption>
     ) : null;
 
