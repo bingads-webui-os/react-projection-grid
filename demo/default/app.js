@@ -5,38 +5,6 @@ import Octicon from 'react-octicon'; // eslint-disable-line
 import ProjectionGridReact from 'projection-grid-react'; // eslint-disable-line
 import people from './people.json';
 
-function Caption() {
-  return (<span>custom caption for table</span>);
-}
-
-const caption = {
-  props: {},
-  events: {},
-  content: {
-    Component: Caption,
-  },
-};
-
-function CustomRow() {
-  return (<span>custom row in table body, table head, table foot and test it in every place</span>);
-}
-
-const customRow = {
-  props: {},
-  events: {},
-  content: {
-    Component: CustomRow,
-  },
-};
-
-const customRecord = {
-  record: {
-    UserName: 'testxxxxxx',
-    FirstName: 'Russell',
-    LastName: 'Whyte',
-  },
-};
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -62,6 +30,11 @@ export default class App extends Component {
           cols={this.state.cols}
           primaryKey="UserName"
           projections={[]}
+          tfoot={{
+            trs: [{
+              content: 'foot placehold',
+            }],
+          }}
         />
       </div>
     );
