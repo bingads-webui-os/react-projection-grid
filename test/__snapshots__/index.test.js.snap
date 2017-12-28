@@ -28,6 +28,7 @@ exports[`ProjectionGridReact should render correctly 1`] = `
         style={Object {}}
       />
     </tbody>
+    <tfoot />
   </table>
 </div>
 `;
