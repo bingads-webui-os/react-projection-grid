@@ -26,7 +26,7 @@ function formatProps({ key, classes = [], props = {}, events = {}, styles = {} }
 
     return utils.assign({}, memo, { [`on${capitalizeFirstLetter(eventName)}`]: events[eventName] });
   }, {}), utils.updateKeys(utils.omit(props, forbiddenProps), propKeyMapper), {
-    className: classes.join(' '),
+    className: classes.join(' ') || null, // '' will add attr class, but null will not
     style: styles,
   });
 }
