@@ -252,6 +252,9 @@ export default class App extends Component {
                 </select>
               </div>
             </form>
+            {this.state.data.filter(_.property('isSelected')).map((d, index) => (
+              <span key={index} className="label label-primary">{d.UserName}</span>
+            ))}
           </div>
           <ProjectionGridReact
             config={config}
