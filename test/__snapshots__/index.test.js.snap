@@ -3,28 +3,28 @@
 exports[`ProjectionGridReact should render correctly 1`] = `
 <div>
   <table
-    className=""
+    className={null}
     style={Object {}}
   >
     <caption
-      className=""
+      className={null}
       style={Object {}}
     />
     <thead
-      className=""
+      className={null}
       style={Object {}}
     >
       <tr
-        className=""
+        className={null}
         style={Object {}}
       />
     </thead>
     <tbody
-      className=""
+      className={null}
       style={Object {}}
     >
       <tr
-        className=""
+        className={null}
         style={Object {}}
       />
     </tbody>
