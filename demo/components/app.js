@@ -27,7 +27,7 @@ export default class App extends Component {
       pageNum: 1,
       pageSize: 5,
       gender: 'All',
-      selectCurrentPage: false,
+      selectedPages: [],
       selectAllPage: false,
     };
 
@@ -96,10 +96,23 @@ export default class App extends Component {
           $td: {
             content: ({ data, isHeader }, content) => {
               if (isHeader) {
-                return content;
+                return <input checked={_.indexOf(this.state.selectedPages, this.state.pageNum) > -1} onChange={(e) => {
+                  const { checked } = e.target;
+
+                  this.setState({
+                    selectedPages: checked ? [...this.state.selectedPages, this.state.pageNum] : _.without(this.state.selectedPages, this.state.pageNum),
+                    data: this.state.data.map((record, index) => {
+                      if (index >= (this.state.pageNum - 1) * this.state.pageSize && index < this.state.pageNum * this.state.pageSize) {
+                        return _.defaults({}, { isSelected: checked }, record);
+                      }
+
+                      return record;
+                    }),
+                  });
+                }} type="checkbox"/>;
               }
 
-              const toggleSelect = (e) => {
+              return <input checked={Boolean(data.isSelected)} onChange={(e) => {
                 this.setState({
                   data: this.state.data.map((record) => {
                     if (record.UserName === data.UserName) {
@@ -109,14 +122,7 @@ export default class App extends Component {
                     return record;
                   }),
                 });
-              };
-
-
-              return (
-                <div>
-                  <input checked={Boolean(data.isSelected)} onChange={toggleSelect} type="checkbox"/>
-                </div>
-              );
+              }} type="checkbox"/>;
             },
           },
         },
