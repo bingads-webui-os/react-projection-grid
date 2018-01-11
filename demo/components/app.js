@@ -27,6 +27,8 @@ export default class App extends Component {
       pageNum: 1,
       pageSize: 5,
       gender: 'All',
+      selectCurrentPage: false,
+      selectAllPage: false,
     };
 
     this.toggleBorderd = this.toggleBorderd.bind(this);
@@ -89,6 +91,35 @@ export default class App extends Component {
       data: this.state.data.slice((this.state.pageNum - 1) * this.state.pageSize, this.state.pageSize * this.state.pageNum),
       caption: { content: 'Projection Grid React' },
       cols: [
+        {
+          key: 'Select',
+          $td: {
+            content: ({ data, isHeader }, content) => {
+              if (isHeader) {
+                return content;
+              }
+
+              const toggleSelect = (e) => {
+                this.setState({
+                  data: this.state.data.map((record) => {
+                    if (record.UserName === data.UserName) {
+                      return _.defaults({}, { isSelected: e.target.checked }, record);
+                    }
+
+                    return record;
+                  }),
+                });
+              };
+
+
+              return (
+                <div>
+                  <input checked={Boolean(data.isSelected)} onChange={toggleSelect} type="checkbox"/>
+                </div>
+              );
+            },
+          },
+        },
         {
           key: 'UserName',
           $td: this.state.icon ? {
