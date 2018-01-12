@@ -27,6 +27,8 @@ export default class App extends Component {
       pageNum: 1,
       pageSize: 5,
       gender: 'All',
+      selectedPages: [],
+      isSelectAll: false,
     };
 
     this.toggleBorderd = this.toggleBorderd.bind(this);
@@ -89,6 +91,43 @@ export default class App extends Component {
       data: this.state.data.slice((this.state.pageNum - 1) * this.state.pageSize, this.state.pageSize * this.state.pageNum),
       caption: { content: 'Projection Grid React' },
       cols: [
+        {
+          key: 'Select',
+          $td: {
+            content: ({ data, isHeader }, content) => {
+              if (isHeader) {
+                return <input checked={_.indexOf(this.state.selectedPages, this.state.pageNum) > -1} onChange={(e) => {
+                  const { checked } = e.target;
+
+                  this.setState({
+                    isSelectAll: false,
+                    selectedPages: checked ? [...this.state.selectedPages, this.state.pageNum] : _.without(this.state.selectedPages, this.state.pageNum),
+                    data: this.state.data.map((record, index) => {
+                      if (index >= (this.state.pageNum - 1) * this.state.pageSize && index < this.state.pageNum * this.state.pageSize) {
+                        return _.defaults({}, { isSelected: checked }, record);
+                      }
+
+                      return record;
+                    }),
+                  });
+                }} type="checkbox"/>;
+              }
+
+              return <input checked={Boolean(data.isSelected)} onChange={(e) => {
+                this.setState({
+                  isSelectAll: false,
+                  data: this.state.data.map((record) => {
+                    if (record.UserName === data.UserName) {
+                      return _.defaults({}, { isSelected: e.target.checked }, record);
+                    }
+
+                    return record;
+                  }),
+                });
+              }} type="checkbox"/>;
+            },
+          },
+        },
         {
           key: 'UserName',
           $td: this.state.icon ? {
@@ -221,6 +260,25 @@ export default class App extends Component {
                 </select>
               </div>
             </form>
+            <div>
+              {this.state.data.filter(_.property('isSelected')).map((d, index) => (
+                <span key={index} className="label label-primary">{d.UserName}</span>
+              ))}
+            </div>
+            <button
+              className="btn btn-default"
+              onClick={(e) => {
+                e.preventDefault();
+
+                this.setState({
+                  isSelectAll: !this.state.isSelectAll,
+                  data: this.state.data.map(record => _.defaults({}, { isSelected: !this.state.isSelectAll }, record)),
+                  selectedPages: this.state.isSelectAll ? [] : _.range(1, Math.ceil(this.state.data.length / this.state.pageSize) + 1),
+                });
+              }}
+            >
+              {this.state.isSelectAll ? 'Deselect all' : 'SelectAll'}
+            </button>
           </div>
           <ProjectionGridReact
             config={config}
